@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container mt-5">
+
+    <div class="card shadow p-4">
+
+        <div class="d-flex justify-content-between align-items-center mb-3">
+
+        <h2 class="mb-0">Employee List</h2>
+
+        <a href="{% url 'employee_form' %}" class="btn btn-success">+ Add Employee </a>
+        </div>
+
+</diviv>
+        <form method="GET" class="mb-3">
+
+            <input type="text"
+                name="search"
+                placeholder="Search Employee Name"
+                class="form-control">
+                
+
+            <input type="text"
+                name="department_search"
+                placeholder="Search Department"
+                class="form-control">
+
+            <input type="number"
+                name="id_search"
+                placeholder="Search Employee ID"
+                class="form-control mb-3">
+
+
+        <br>
+
+        <button type="submit" class="btn btn-primary"> Search</button>
+
+        </form>
+
+        <table class="table table-bordered table-hover text-center align-middle">
+            <thead class="table-dark">
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Age</th>
+                    <th>Department</th>
+                    <th>Salary</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for employee in employees %}
+                <tr>
+                    <td>{{ employee.id }}</td>
+                    <td>{{ employee.name }}</td>
+                    <td>{{ employee.age }}</td>
+                    <td>{{ employee.department }}</td>
+                    <td>{{ employee.salary }}</td>
+                    <td>
+                        <a href="{% url 'singleemployee' employee.id %}" class="btn btn-info btn-sm"> View</a>
+                        <a href="{% url 'employeeedit' employee.id %}" class="btn btn-warning btn-sm">Edit </a>
+                        <a href="{% url 'employeedelete' employee.id %}" class="btn btn-danger btn-sm"onclick="return confirm('Are you sure you want to delete this employee?')">Delete</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+{% endblock %}
